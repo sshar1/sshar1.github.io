@@ -186,6 +186,17 @@
                         Codebusters app created with Flutter
                     </div>
                 </div>
+                <div class="project" popup="popup9">
+                    <div class="img-container">
+                        <img src="project_imgs/build18/coverimg.jpg" alt="project img" class="project-img">
+                    </div>
+                    <div class="project-title">
+                        <span>Panda Fan</span>
+                    </div>
+                    <div class="project-description">
+                        Automatic panning fan built for CMU Build18
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -594,6 +605,52 @@
             </div>
         </div>
 
+        <div class="modal" id="popup9">
+            <div class="modal-content">
+                <button class="close-button">&times;</button>
+                <div class="slideshow-container" data-slideshow="popup9">
+                    <!-- Slides for popup 2 -->
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="project_imgs/build18/img1.jpg">
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                        <img src="project_imgs/build18/img2.gif">
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                        <img src="project_imgs/build18/img3.jpg">
+                    </div>
+                    
+                    <!-- Navigation buttons -->
+                    <a class="prev" onclick="plusSlides(-1, 'popup9')">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1, 'popup9')">&#10095;</a>
+                </div>
+                
+                <!-- Dots for popup 2 -->
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1, 'popup9')"></span>
+                    <span class="dot" onclick="currentSlide(2, 'popup9')"></span>
+                    <span class="dot" onclick="currentSlide(3, 'popup9')"></span>
+                </div>
+                
+                <div class="popup-title"">
+                    <h2>PandaFan</h2>
+                </div>
+                <p>
+                    This is a fan my team and I created for the CMU Build18 Hackathon.
+                    It was fully designed, 3D-printed, and laser cut by us. It follows
+                    the biggest face it sees.
+                    <br>
+                    We used a RaspPi camera running OpenCV on a Raspberry Pi 4 to run
+                    face detection. Our Arduino controls the stepper motor movement.
+                    The two computers are connected via a USB Serial protocol, although
+                    we also ran it using I2C.
+                </p>
+            </div>
+        </div>
+
         <script>
             const slideIndices = {
                 popup1: 1,
@@ -603,7 +660,8 @@
                 popup5: 1,
                 popup6: 1,
                 popup7: 1,
-                popup8: 1
+                popup8: 1,
+                popup9: 1
             };
 
             function plusSlides(n, slideshowId) {
