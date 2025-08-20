@@ -4,13 +4,18 @@ import { ChevronsDown, Cpu, Code, Linkedin, Github, Mail, Send, HardDrive, Brain
 // Data for the portfolio
 const portfolioData = {
     name: "Sami Sharif",
-    title: "Electrical & Computer Engineer | Robotics",
-    about: "I am a dedicated Electrical and Computer Engineering student at Carnegie Mellon University, with an additional major in Robotics. My experience ranges from developing custom hardware like the PandaFan to implementing complex software solutions in robotics and UI design. I am passionate about creating efficient, scalable, and impactful technology, as demonstrated by my award-winning hackathon projects and my internship experience at Roblox.",
+    title: "Electrical & Computer Engineer | Software Engineer",
+    about: "I'm a sophomore at Carnegie Mellon University pursuing a Bachelor's degree in Electrical & Computer Engineering and Robotics. My main interests lie in robotics software and embedded systems, but I also have experience developing games, making apps, and coding random things. I love swimming, playing frisbee, and cats.",
+    selfie: "./src/assets/me.jpg",
     skills: {
         languages: [
             { name: "C++", icon: Code },
             { name: "Java", icon: Code },
             { name: "Python", icon: Code },
+            { name: "C#", icon: Code },
+            { name: "C", icon: Code },
+            { name: "Lua", icon: Code },
+            { name: "Dart", icon: Code },
             { name: "JavaScript", icon: Code },
             { name: "HTML/CSS", icon: Code },
         ],
@@ -19,40 +24,48 @@ const portfolioData = {
             { name: "ROS", icon: Bot },
             { name: "Unity", icon: Code },
             { name: "Arduino", icon: Cpu },
+            { name: "Raspberry Pi", icon: Cpu },
             { name: "OpenCV", icon: BrainCircuit },
             { name: "OpenAI", icon: BrainCircuit },
             { name: "Flutter", icon: Code },
+            { name: "MATLAB", icon: Code },
         ],
         fabricationAndDesign: [
-            { name: "Onshape", icon: Cpu },
+            { name: "OnShape", icon: Cpu },
             { name: "3D Printing", icon: Cpu },
             { name: "Laser Cutting", icon: Cpu },
         ]
     },
     projects: [
         {
-            title: "Software Engineering Intern @ Roblox",
-            imgPlaceholder: "RBX",
-            description: "Designed a backwards-compatible API for UIStroke features, implemented image-based strokes with a custom HLSL shader, and refactored the rendering architecture to improve flexibility and decrease memory consumption by ~25%.",
-            tech: ["HLSL", "C++", "UI/UX", "Engine Architecture"]
-        },
-        {
             title: "PandaFan",
-            imgPlaceholder: "FAN",
-            description: "Engineered and prototyped a custom toroidal fan with an autonomous tracking system using a Raspberry Pi, OpenCV for face detection, and an Arduino to control stepper motors.",
-            tech: ["Raspberry Pi", "OpenCV", "Arduino", "Onshape", "Digital Fabrication"]
+            img: "./src/assets/pandafan.png",
+            description: "Engineered and prototyped a custom toroidal fan, translating a 3D model from Onshape into a physical assembly using digital fabrication techniques.\nEngineered an autonomous tracking system where a Raspberry Pi uses OpenCV cascade classifiers for real-time face detection, commanding an Arduino via serial communication to aim the fan with stepper motors.",
+            tech: ["Python", "Raspberry Pi", "OpenCV", "Arduino", "Solidworks", "Digital Fabrication", "Laser Cutting"]
         },
         {
             title: "NOVA Hackathon - 1st Place",
-            imgPlaceholder: "NOVA",
-            description: "Won 1st place out of 42 teams by creating an app that uses the OpenAI API to generate test questions from notes and provides feedback using a spaced repetition algorithm.",
+            img: "./src/assets/intellinote.png",
+            description: "Won 1st place of 42 teams by using the OpenAI API to generate test questions from an uploaded note file and provide feedback to user's answers.\nImplemented a spaced repetition algorithm to inform what questions to ask based on a heatmap of user's understanding.\nWon the Everyday Impact Award sponsored by Sandia National Laboratories.",
             tech: ["OpenAI API", "Python", "Streamlit", "Spaced Repetition"]
         },
         {
+            title: "Red Robot Hackathon - 1st Place",
+            img: "./src/assets/redrobot.png",
+            description: "Won 1st place in Red Robot, Carnegie Mellon’s Roboclub Hackathon, by designing and manufacturing a robot with a 4-bar linkage lift to stack and deliver objects.\nWon the Autonomous Award sponsored by Caterpillar for an autonomous routine using feedback control and an IR sensor to follow a path.",
+            tech: ["Arduino", "Laser Cutting", "3D Printing", "OnShape", "Design"]
+        },
+        {
             title: "Autonomous Robot Simulator",
-            imgPlaceholder: "SIM",
-            description: "Remodeled and animated an FRC robot in Unity, developing a reliable launching algorithm and integrating A* pathfinding for autonomous trajectory following.",
+            img: "./src/assets/robotsim.png",
+            description: "Remodeled, animated, and added controls to FRC 118's 2022 robot within a custom robot simulator leveraging Unity.\nDeveloped a reliable launching algorithm based on calculus and kinematics, now utilized in FRC 2601's simulations.\nIntegrated an A* pathfinding algorithm to allow the robot to autonomously create and follow trajectories.",
             tech: ["Unity", "C#", "A* Pathfinding", "Kinematics"]
+        },
+        {
+            title: "Enigma",
+            img: "./src/assets/enigma.png",
+            description: "Created a user interface and backend for an app to practice decoding common ciphers from the Science Olympiad, utilizing the Flutter framework.\nImplemented a monoalphabetic substitution solver algorithm in Dart to automatically decode Aristocrat ciphers.",
+            tech: ["Flutter", "Dart"]
         }
     ],
     experience: [
@@ -60,13 +73,20 @@ const portfolioData = {
             role: "Software Engineering Intern",
             company: "Roblox",
             date: "May 2025 - August 2025",
-            description: "Worked on the UI engine team, focusing on rendering architecture and API design for UIStroke features."
+            description: "Designed and proposed a backwards-compatible API for new UIStroke features, collaborating with the engine review board to ensure backwards compatibility and future extensibility.\nEngineered support for image-based strokes by implementing a custom HLSL shader and a jump flooding algorithm.\nRefactored the C++-based UIStroke rendering architecture to support multiple, dynamic, and screen-responsive stroke effects.\nValidated performance impact by writing a suite of unit tests, confirming new features maintained a render time of ~0.04 ms and decreased memory consumption by ~25%."
+        },
+        {
+            role: "Software Lead & Driver",
+            company: "FRC 2601",
+            date: "September 2021 - May 2024",
+            description: "Revamped team's legacy coding framework, implementing a command-based structure with safer control of interconnected mechanisms, improved modularity, and a 70% decrease in CAN bus utilization.\nDesigned team's programming curriculum and handbook to introduce 30+ members to Java and control theory.\nDrove robot in high-intensity matches at all competitions, leading to 2 competition wins and 2 finalist placements."
         }
+
     ],
     contact: {
         email: "ssharif@andrew.cmu.edu",
         linkedin: "https://linkedin.com/in/sami-sharif1",
-        github: "https://github.com/samisharif"
+        github: "https://github.com/sshar1"
     }
 };
 
@@ -197,13 +217,12 @@ const Hero = ({ data }) => {
                     return prev;
                 }
             });
-        }, 100);
+        }, 75);
         return () => clearInterval(interval);
     }, [data.title]);
 
     return (
         <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center text-center relative overflow-hidden">
-            {/* PCB Traces with corrected paths */}
             <PcbTrace top="top-[10%]" side="left" width="w-[35vw] md:w-[30vw]" pathData="M 0 20 L 120 20 L 150 50 L 200 50" endPoint={{x: 200, y: 50}} delay="0.5s" />
             <PcbTrace top="top-[25%]" side="left" width="w-[25vw] md:w-[20vw]" pathData="M 0 80 L 150 80 L 200 130" endPoint={{x: 200, y: 130}} delay="1.1s" />
             <PcbTrace top="top-[40%]" side="left" width="w-[30vw] md:w-[25vw]" pathData="M 0 100 L 80 100 L 110 70 L 200 70" endPoint={{x: 200, y: 70}} delay="0.8s" />
@@ -242,15 +261,15 @@ const About = ({ data }) => {
                 <SectionTitle title="About Me" />
                 <div className="flex flex-col md:flex-row items-center gap-12">
                     <div className="md:w-1/3 flex justify-center">
-                        <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-gray-600 to-gray-200 p-1 shadow-lg">
+                        <div className="w-48 h-48 md:w-90 md:h-90 rounded-full bg-gradient-to-br from-gray-600 to-gray-200 p-1 shadow-lg">
                             <img
-                                src={`https://placehold.co/300x300/000000/FFFFFF?text=${data.name.split(' ').map(n=>n[0]).join('')}`}
+                                src={`${data.selfie}`}
                                 alt={data.name}
                                 className="w-full h-full rounded-full object-cover"
                             />
                         </div>
                     </div>
-                    <div className="md:w-2/3 text-lg text-gray-300 text-center md:text-left">
+                    <div className="md:w-2/3 text-2xl text-gray-300 text-center md:text-left">
                         <p>{data.about}</p>
                     </div>
                 </div>
@@ -271,10 +290,10 @@ const Skills = ({ data }) => {
         <AnimatedSection className="py-20 bg-black text-white">
             <div className="container mx-auto px-6 md:px-12">
                 <SectionTitle title="Skills" />
-                <div className="max-w-4xl mx-auto space-y-8">
+                <div className="max-w-7xl mx-auto space-y-8">
                     {skillCategories.map(category => (
                         <div key={category.title} className="flex flex-col md:flex-row md:items-start">
-                            <h3 className="text-2xl font-semibold mb-4 md:mb-0 md:w-1/3">{category.title}</h3>
+                            <h3 className="text-3xl font-semibold mb-4 md:mb-0 md:w-1/3">{category.title}</h3>
                             <div className="flex flex-wrap gap-4 md:w-2/3">
                                 {category.skills.map((skill, index) => {
                                     const Icon = skill.icon;
@@ -302,16 +321,16 @@ const AnimatedProjectTile = ({ project }) => {
             ref={ref}
             className={`transition-all duration-1000 ease-in-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} bg-black rounded-2xl overflow-hidden border-2 border-white hover:scale-105 flex flex-col md:flex-row`}
         >
-            <div className="md:w-1/3 bg-gray-900 flex items-center justify-center p-8">
+            <div className="md:w-1/3 bg-gray-900 flex items-center justify-center">
                 <img
-                    src={`https://placehold.co/400x300/111827/FFFFFF?text=${project.imgPlaceholder}`}
+                    src={`${project.img}`}
                     alt={`${project.title} placeholder`}
                     className="w-full h-auto rounded-md object-cover"
                 />
             </div>
             <div className="md:w-2/3 p-8 flex flex-col justify-center">
                 <h3 className="text-3xl font-bold mb-3 text-white">{project.title}</h3>
-                <p className="text-gray-400 mb-6 text-lg">{project.description}</p>
+                <p className="text-gray-400 mb-6 text-lg whitespace-pre-line">{project.description}</p>
                 <div className="flex flex-wrap gap-3">
                     {project.tech.map((tech, i) => (
                         <span key={i} className="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium">{tech}</span>
@@ -342,18 +361,18 @@ const Experience = ({ data }) => {
         <AnimatedSection className="py-20 bg-black text-white">
             <div className="container mx-auto px-6 md:px-12">
                 <SectionTitle title="Experience" />
-                <div className="relative border-l-2 border-gray-700 ml-6 md:ml-0 md:mx-auto max-w-4xl">
+                <div className="relative border-l-2 border-gray-700 ml-6 md:ml-0 md:mx-auto max-w-7xl">
                     {data.experience.map((item, index) => (
                         <div key={index} className="mb-12 pl-10 md:pl-0">
                             <div className="absolute -left-3.5 mt-1.5 w-6 h-6 bg-white rounded-full border-4 border-black"></div>
-                            <div className="md:flex md:justify-between md:items-center">
-                                <div className="md:w-1/2 md:pr-6 md:text-right">
-                                    <h3 className="text-2xl font-bold text-white">{item.role}</h3>
+                            <div className="md:flex md:items-start md:gap-8">
+                                <div className="md:w-1/3 md:text-right">
+                                    <h3 className="text-2xl font-bold text-white mt-1">{item.role}</h3>
                                     <p className="text-lg text-gray-400">{item.company}</p>
                                     <p className="text-md text-gray-500">{item.date}</p>
                                 </div>
-                                <div className="md:w-1/2 md:pl-6 mt-4 md:mt-0">
-                                    <p className="text-gray-300">{item.description}</p>
+                                <div className="md:w-2/3 mt-4 md:mt-0">
+                                    <p className="text-gray-300 text-lg whitespace-pre-line">{item.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -369,7 +388,7 @@ const Contact = ({ data }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFormStatus('Message sent! (Demo)');
+        setFormStatus('Message sent!');
         setTimeout(() => setFormStatus(''), 3000);
         e.target.reset();
     };
