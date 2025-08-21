@@ -6,7 +6,7 @@ const portfolioData = {
     name: "Sami Sharif",
     title: "Electrical & Computer Engineer | Software Engineer",
     about: "I'm a sophomore at Carnegie Mellon University pursuing a Bachelor's degree in Electrical & Computer Engineering and Robotics. My main interests lie in robotics software and embedded systems, but I also have experience developing games, making apps, and coding random things. I love swimming, playing frisbee, and cats.",
-    selfie: "./src/assets/me.jpg",
+    selfie: "/assets/me.jpg",
     skills: {
         languages: [
             { name: "C++", icon: Code },
@@ -39,31 +39,31 @@ const portfolioData = {
     projects: [
         {
             title: "PandaFan",
-            img: "./src/assets/pandafan.png",
+            img: "/assets/pandafan.png",
             description: "Engineered and prototyped a custom toroidal fan, translating a 3D model from Onshape into a physical assembly using digital fabrication techniques.\nEngineered an autonomous tracking system where a Raspberry Pi uses OpenCV cascade classifiers for real-time face detection, commanding an Arduino via serial communication to aim the fan with stepper motors.",
             tech: ["Python", "Raspberry Pi", "OpenCV", "Arduino", "Solidworks", "Digital Fabrication", "Laser Cutting"]
         },
         {
             title: "NOVA Hackathon - 1st Place",
-            img: "./src/assets/intellinote.png",
+            img: "/assets/intellinote.png",
             description: "Won 1st place of 42 teams by using the OpenAI API to generate test questions from an uploaded note file and provide feedback to user's answers.\nImplemented a spaced repetition algorithm to inform what questions to ask based on a heatmap of user's understanding.\nWon the Everyday Impact Award sponsored by Sandia National Laboratories.",
             tech: ["OpenAI API", "Python", "Streamlit", "Spaced Repetition"]
         },
         {
             title: "Red Robot Hackathon - 1st Place",
-            img: "./src/assets/redrobot.png",
+            img: "/assets/redrobot.png",
             description: "Won 1st place in Red Robot, Carnegie Mellon’s Roboclub Hackathon, by designing and manufacturing a robot with a 4-bar linkage lift to stack and deliver objects.\nWon the Autonomous Award sponsored by Caterpillar for an autonomous routine using feedback control and an IR sensor to follow a path.",
             tech: ["Arduino", "Laser Cutting", "3D Printing", "OnShape", "Design"]
         },
         {
             title: "Autonomous Robot Simulator",
-            img: "./src/assets/robotsim.png",
+            img: "/assets/robotsim.png",
             description: "Remodeled, animated, and added controls to FRC 118's 2022 robot within a custom robot simulator leveraging Unity.\nDeveloped a reliable launching algorithm based on calculus and kinematics, now utilized in FRC 2601's simulations.\nIntegrated an A* pathfinding algorithm to allow the robot to autonomously create and follow trajectories.",
             tech: ["Unity", "C#", "A* Pathfinding", "Kinematics"]
         },
         {
             title: "Enigma",
-            img: "./src/assets/enigma.png",
+            img: "/assets/enigma.png",
             description: "Created a user interface and backend for an app to practice decoding common ciphers from the Science Olympiad, utilizing the Flutter framework.\nImplemented a monoalphabetic substitution solver algorithm in Dart to automatically decode Aristocrat ciphers.",
             tech: ["Flutter", "Dart"]
         }
