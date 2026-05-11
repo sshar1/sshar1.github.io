@@ -1,50 +1,123 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
 @layer base {
-    body {
-        background-color: #000;
-        color: white;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #000;
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
 }
 
 /* --- Base Animations --- */
 @keyframes fade-in-down {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes fade-in-up {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
 .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
 
+/* --- Grid Pattern --- */
 .bg-grid-pattern {
-    background-image:
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 2rem 2rem;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 3rem 3rem;
 }
 
 /* --- PCB Trace Animations --- */
 @keyframes draw-trace {
-    to {
-        stroke-dashoffset: 0;
-    }
+  to { stroke-dashoffset: 0; }
 }
 @keyframes pop-in {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
-    }
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }
-
 .animate-trace {
-    animation: draw-trace 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: draw-trace 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 .animate-pop-in {
-    animation: pop-in 0.5s 1.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    transform: scale(0);
+  animation: pop-in 0.5s 1.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform: scale(0);
+}
+
+/* --- Navbar --- */
+.nav-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* --- Project Card --- */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Garage Tile --- */
+.garage-tile {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.garage-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.garage-title-gradient {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+}
+
+/* --- Education Card --- */
+.edu-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.edu-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.04);
+}
+
+/* --- Section Divider --- */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* --- Expand animation --- */
+.expand-enter {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.expand-enter.expanded {
+  max-height: 500px;
+  opacity: 1;
 }
