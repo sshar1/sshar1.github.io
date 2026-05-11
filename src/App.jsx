@@ -8,14 +8,19 @@ const portfolioData = {
     selfie: "/assets/me.jpg",
     projects: [
         {
+            title: "Dunes Tower Defense",
+            img: "/assets/dunes.png",
+            description: "Build18 2026 project. We won the Officer's Award for creating a Tower Defense game that you play in real life. The game is projected onto a sandbox and you place pieces in real life to defend your base. The sand serves as an extra dimension of play, allowing you to alter terrain so enemies behave differently. Created with OpenGL, SDL2, and OpenCV.",
+        },
+        {
             title: "PandaFan",
             img: "/assets/pandafan.png",
-            description: "Engineered and prototyped a custom toroidal fan, translating a 3D model from Onshape into a physical assembly using digital fabrication techniques.\nEngineered an autonomous tracking system where a Raspberry Pi uses OpenCV cascade classifiers for real-time face detection, commanding an Arduino via serial communication to aim the fan with stepper motors.",
+            description: "Build18 2025 project. We CADed and fabricated a custom toroidal fan that tracks your face and follows it around. You'll always be cool!",
         },
         {
             title: "NOVA Hackathon — 1st Place",
             img: "/assets/intellinote.png",
-            description: "Won 1st place of 42 teams by using the OpenAI API to generate test questions from an uploaded note file and provide feedback to user's answers.\nImplemented a spaced repetition algorithm to inform what questions to ask based on a heatmap of user's understanding.\nWon the Everyday Impact Award sponsored by Sandia National Laboratories.",
+            description: "We won 1st place of 42 teams in the NOVA 2024 Hackathon by making an app that allows you to upload your notes from class and get quizzed on it. We use an algorithm based on spaced repetition along with the OpenAI API to generate appropriate questions and create a heatmap of user understanding. We also won the Everyday Impact Award!",
         },
         {
             title: "Red Robot Hackathon — 1st Place",
@@ -25,7 +30,7 @@ const portfolioData = {
         {
             title: "Autonomous Robot Simulator",
             img: "/assets/robotsim.png",
-            description: "Remodeled, animated, and added controls to FRC 118's 2022 robot within a custom robot simulator leveraging Unity.\nDeveloped a reliable launching algorithm based on calculus and kinematics, now utilized in FRC 2601's simulations.\nIntegrated an A* pathfinding algorithm to allow the robot to autonomously create and follow trajectories.",
+            description: "I remodeled, animated, and added controls to FRC 118's 2022 robot within a custom robot simulator in Unity.\nDeveloped a reliable launching algorithm based on calculus and kinematics, now utilized in FRC 2601's simulations.\nIntegrated an A* pathfinding algorithm to allow the robot to autonomously create and follow trajectories.",
         },
         {
             title: "Enigma",
@@ -250,8 +255,8 @@ const ProjectCard = ({ project }) => {
     return (
         <div ref={ref} className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div onClick={() => setExpanded(!expanded)} className="project-card bg-gray-950 border border-white/[0.08] rounded-xl overflow-hidden cursor-pointer">
-                <div className="aspect-video overflow-hidden bg-gray-900">
-                    <img src={project.img} alt={project.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <div className="aspect-square overflow-hidden bg-gray-900">
+                    <img src={project.img} alt={project.title} className="w-full h-full object-contain hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-5">
                     <div className="flex items-center justify-between mb-3">
