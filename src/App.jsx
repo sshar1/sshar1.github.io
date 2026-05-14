@@ -4,7 +4,7 @@ import { ChevronsDown, Linkedin, Github, Mail, ArrowLeft, ChevronDown, Menu, X, 
 const portfolioData = {
     name: "Sami Sharif",
     title: "Electrical & Computer Engineer | Software Engineer",
-    about: "I'm a junior at Carnegie Mellon University pursuing a B.S. in ECE and Robotics. My main interests lie in computer graphics (check out my garage section below!) and robotics software, but I also love developing games, FPGAs in SystemVerilog, and pretty much anything involving computer systems. I love swimming, playing frisbee, Star Wars, cats, and any combination of those things.",
+    about: "I'm a junior at Carnegie Mellon University pursuing a B.S. in ECE and Robotics. My main interests lie in computer graphics and robotics software (check out my garage section below!), but I also love developing games, FPGAs in SystemVerilog, and pretty much anything involving computer systems. I love swimming, playing frisbee, making jewelry, Star Wars, cats, and any combination of those things.",
     selfie: "/assets/me.jpg",
     projects: [
         {
@@ -67,6 +67,7 @@ const portfolioData = {
     ],
     garage: [
         { title: "3D Voronoi Visualizer", slug: "voronoi", img: "/assets/voronoi.png", href: "/voronoi/" },
+        { title: "Metaballs", slug: "metaballs", img: "/assets/metaballs.png", href: "/metaballs/" },
     ],
     contact: {
         email: "samisharf26@gmail.com",

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Metaballs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main-area">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script id="shader" type="text/wgsl">
+        const threshold = 2;
+        // Thickness in NDC units. Increase this for thicker lines.
+        const LINE_HALF_WIDTH: f32 = 0.008;
+
+        // Maps corner values to activated edges
+        // top, right, bottom, left
+        // 0     1        2      3
+        const LOOKUP_TABLE = array<vec4<i32>, 16>(
+            vec4<i32>(0, 0, 0, 0),   //  0: none inside
+            vec4<i32>(3, 2, 0, 0),   //  1: BL        → Left ↔ Bottom
+            vec4<i32>(2, 1, 0, 0),   //  2: BR        → Bottom ↔ Right
+            vec4<i32>(3, 1, 0, 0),   //  3: BR+BL     → Left ↔ Right
+            vec4<i32>(0, 1, 0, 0),   //  4: TR        → Top ↔ Right
+            vec4<i32>(0, 3, 1, 2),   //  5: TR+BL     → saddle: (Top↔Left) + (Right↔Bottom)
+            vec4<i32>(0, 2, 0, 0),   //  6: TR+BR     → Top ↔ Bottom
+            vec4<i32>(0, 3, 0, 0),   //  7: TR+BR+BL  → Top ↔ Left
+            vec4<i32>(0, 3, 0, 0),   //  8: TL        → Top ↔ Left
+            vec4<i32>(0, 2, 0, 0),   //  9: TL+BL     → Top ↔ Bottom
+            vec4<i32>(0, 1, 3, 2),   // 10: TL+BR     → saddle: (Top↔Right) + (Left↔Bottom)
+            vec4<i32>(0, 1, 0, 0),   // 11: TL+BR+BL  → Top ↔ Right
+            vec4<i32>(3, 1, 0, 0),   // 12: TL+TR     → Left ↔ Right
+            vec4<i32>(2, 1, 0, 0),   // 13: TL+TR+BL  → Bottom ↔ Right
+            vec4<i32>(3, 2, 0, 0),   // 14: TL+TR+BR  → Left ↔ Bottom
+            vec4<i32>(0, 0, 0, 0)    // 15: all inside
+        );
+
+        struct VertexOut {
+            @builtin(position) position : vec4f,
+            @location(0) color : vec4f
+        }
+
+        struct Circle {
+            pos: vec2f,
+            radius: f32,
+            _pad: f32,
+        }
+
+        struct Uniforms {
+            grid_width: u32,
+            _pad1: u32,
+            _pad2: u32,
+            _pad3: u32,
+            circles: array<Circle, 10>,
+        }
+
+        @group(0) @binding(0) var<uniform> uniforms: Uniforms;
+
+        fn implicit(x: f32, y: f32) -> f32 {
+            var sum = 0.0;
+            for (var i = 0u; i < 10u; i++) {
+                sum += uniforms.circles[i].radius / length(vec2f(x, y) - uniforms.circles[i].pos);
+            }
+            
+            return sum;
+        }
+
+        fn lerp(pos0: vec2f, pos1: vec2f, v0: f32, v1: f32) -> vec2f {
+            let t = (threshold - v0) / (v1 - v0);
+            return pos0 + (pos1 - pos0) * t;
+        }
+
+        // Returns one vertex of a thick-line quad.
+        // seg_a / seg_b: the two endpoints of the segment.
+        // quad_vert: which of the 6 triangle vertices (0..5) this is.
+        fn thick_line_vert(seg_a: vec2f, seg_b: vec2f, quad_vert: u32) -> vec2f {
+            let dir = normalize(seg_b - seg_a);
+            let perp = vec2f(-dir.y, dir.x) * LINE_HALF_WIDTH;
+
+            // Two quads (6 verts) from 4 corners:
+            //  c0=a-perp, c1=a+perp, c2=b+perp, c3=b-perp
+            // Tri 0: c0,c1,c2  Tri 1: c0,c2,c3
+            let c0 = seg_a - perp;
+            let c1 = seg_a + perp;
+            let c2 = seg_b + perp;
+            let c3 = seg_b - perp;
+
+            var corners = array<vec2f, 6>(c0, c1, c2, c0, c2, c3);
+            return corners[quad_vert];
+        }
+
+        @vertex
+        fn vertex_main(@builtin(vertex_index) vertex_index: u32) -> VertexOut
+        {
+            let gw = uniforms.grid_width;
+            let gwf = f32(gw);
+
+            // 12 vertices per cell: 2 segments x 6 verts (quad)
+            let cell      = vertex_index / 12u;
+            let local_idx = vertex_index % 12u;
+            let seg       = local_idx / 6u;   // 0 or 1
+            let quad_vert = local_idx % 6u;   // 0..5
+
+            let col = f32(cell % gw);
+            let row = f32(cell / gw);
+
+            // Center of this cell in NDC
+            let cx = ((col + 0.5) / gwf) * 2.0 - 1.0;
+            let cy = ((row + 0.5) / gwf) * 2.0 - 1.0;
+
+            // Half-size of one cell in NDC
+            let s = 1.0 / gwf;
+
+            // Four corners: 0=TL, 1=TR, 2=BR, 3=BL
+            var corners = array<vec2f, 4>(
+                vec2f(cx - s, cy + s), // TL
+                vec2f(cx + s, cy + s), // TR
+                vec2f(cx + s, cy - s), // BR
+                vec2f(cx - s, cy - s), // BL
+            );
+
+            var tl_val = implicit(corners[0].x, corners[0].y);
+            var tr_val = implicit(corners[1].x, corners[1].y);
+            var br_val = implicit(corners[2].x, corners[2].y);
+            var bl_val = implicit(corners[3].x, corners[3].y);
+
+            var top    = lerp(corners[0], corners[1], tl_val, tr_val);
+            var right  = lerp(corners[1], corners[2], tr_val, br_val);
+            var bottom = lerp(corners[3], corners[2], bl_val, br_val);
+            var left   = lerp(corners[0], corners[3], tl_val, bl_val);
+
+            var edge_points = array<vec2f, 4>(top, right, bottom, left);
+
+            var tl_thresh = u32(tl_val > threshold);
+            var tr_thresh = u32(tr_val > threshold);
+            var br_thresh = u32(br_val > threshold);
+            var bl_thresh = u32(bl_val > threshold);
+
+            var lookup_idx: u32 = (tl_thresh << 3u) | (tr_thresh << 2u) | (br_thresh << 1u) | (bl_thresh << 0u);
+
+            // Each lookup row stores two segments: edges [0,1] and [2,3]
+            let edge_a_idx = u32(LOOKUP_TABLE[lookup_idx][seg * 2u]);
+            let edge_b_idx = u32(LOOKUP_TABLE[lookup_idx][seg * 2u + 1u]);
+
+            let seg_a = edge_points[edge_a_idx];
+            let seg_b = edge_points[edge_b_idx];
+
+            var pos: vec2f;
+            // Degenerate segment (both ends the same edge, i.e. no line here):
+            // collapse to a zero-area triangle so it's invisible.
+            if (edge_a_idx == edge_b_idx) {
+                pos = seg_a;
+            } else {
+                pos = thick_line_vert(seg_a, seg_b, quad_vert);
+            }
+
+            var output : VertexOut;
+            output.position = vec4f(pos, 0.0, 1.0);
+
+            let color_left = vec3f(0, 1.0, 0.2);
+            let color_right = vec3f(0, 0.4, 1.0);
+            let mixed_color = mix(color_left, color_right, (pos.x + 1.0) * 0.5);
+            output.color = vec4f(mixed_color, 1.0);
+            
+            return output;
+        }
+
+        @fragment
+        fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
+        {
+            return fragData.color;
+        }
+    </script>
+
+
+    <!-- <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>Voronoi Seeds</h2>
+            <div class="subtitle" id="seed-count">9 seeds</div>
+        </div>
+        <div id="seed-list"></div>
+        <div class="add-seed-section" id="add-seed-section"></div>
+    </div> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <!-- <script src="input.js"></script> -->
+    <script src="engine.js"></script>
+</body>
+
+</html>
