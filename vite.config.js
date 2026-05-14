@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         voronoi: resolve(__dirname, 'voronoi/index.html'),
+        metaballs: resolve(__dirname, 'metaballs/index.html'),
       },
     },
   },
