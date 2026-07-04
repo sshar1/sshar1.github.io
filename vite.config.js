@@ -6,8 +6,8 @@ import { resolve } from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-      react(),
-      tailwindcss(),
+    react(),
+    tailwindcss(),
   ],
   build: {
     rollupOptions: {
@@ -15,6 +15,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         voronoi: resolve(__dirname, 'voronoi/index.html'),
         metaballs: resolve(__dirname, 'metaballs/index.html'),
+        terrain: resolve(__dirname, 'terrain/index.html'),
       },
     },
   },
