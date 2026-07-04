@@ -12,6 +12,7 @@ import * as Utils from './math_util.js';
 import { TerrainRenderer } from './TerrainRenderer.js';
 import { GridUpdater } from './GridUpdater.js';
 import { VertexStreamer } from './VertexStreamer.js';
+import './input.js';
 
 const VOXEL_RESOLUTION = 32;
 const NUM_POINTS = VOXEL_RESOLUTION * VOXEL_RESOLUTION * VOXEL_RESOLUTION;

@@ -1,14 +1,8 @@
-async function createShaderModule(device, path) {
-    const response = await fetch(path + '?v=' + Date.now());
-    const shaderSource = await response.text();
-    return device.createShaderModule({
-        code: shaderSource
-    });
-}
+import renderShaderCode from './shaders/render.wgsl?raw';
 
 export class TerrainRenderer {
     static async create(device, colorFormat, depthFormat) {
-        const shaderModule = await createShaderModule(device, "./shaders/render.wgsl");
+        const shaderModule = device.createShaderModule({ code: renderShaderCode });
         return new TerrainRenderer(device, shaderModule, colorFormat, depthFormat);
     }
 

@@ -1,15 +1,10 @@
-async function createShaderModule(device, path) {
-    const response = await fetch(path + '?v=' + Date.now());
-    const shaderSource = await response.text();
-    return device.createShaderModule({
-        code: shaderSource
-    });
-}
+import mouseHitShaderCode from './shaders/mouseHit.wgsl?raw';
+import updateShaderCode from './shaders/update.wgsl?raw';
 
 export class GridUpdater {
     static async create(device, gridBuffer, cursorBuffer, resolution) {
-        const cursorHitShader   = await createShaderModule(device, "./shaders/mouseHit.wgsl");
-        const updateShader      = await createShaderModule(device, "./shaders/update.wgsl");
+        const cursorHitShader   = device.createShaderModule({ code: mouseHitShaderCode });
+        const updateShader      = device.createShaderModule({ code: updateShaderCode });
         return new GridUpdater(device, cursorHitShader, updateShader, gridBuffer, cursorBuffer, resolution);
     }
 

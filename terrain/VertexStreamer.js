@@ -260,17 +260,11 @@ const MC_CASE_TABLE = new Int32Array([
     -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ]);
 
-async function createShaderModule(device, path) {
-    const response = await fetch(path + '?v=' + Date.now());
-    const shaderSource = await response.text();
-    return device.createShaderModule({
-        code: shaderSource
-    });
-}
+import marchingCubesShaderCode from './shaders/marchingCubes.wgsl?raw';
 
 export class VertexStreamer {
     static async create(device, gridBuffer, updateUniformBuffer, resolution) {
-        const marchingCubesShader = await createShaderModule(device, "./shaders/marchingCubes.wgsl");
+        const marchingCubesShader = device.createShaderModule({ code: marchingCubesShaderCode });
         return new VertexStreamer(device, marchingCubesShader, gridBuffer, updateUniformBuffer, resolution);
     }
 
