@@ -68,6 +68,7 @@ const portfolioData = {
     garage: [
         { title: "3D Voronoi Visualizer", slug: "voronoi", img: "/assets/voronoi.png", href: "/voronoi/" },
         { title: "Metaballs", slug: "metaballs", img: "/assets/metaballs.png", href: "/metaballs/" },
+        { title: "Terrain Editor", slug: "terrain", img: "/assets/terrain.png", href: "/terrain/" },
     ],
     contact: {
         email: "samisharf26@gmail.com",
