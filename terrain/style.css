@@ -344,3 +344,33 @@ canvas {
 .add-btn:active {
     transform: scale(0.97);
 }
+
+/* ─── Instruction Overlay ─── */
+#instruction-overlay {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(12, 12, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e8;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.01em;
+}
+
+#instruction-overlay strong {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin: 0 2px;
+}
